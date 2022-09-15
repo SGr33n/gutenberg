@@ -186,6 +186,12 @@ add_action( 'init', 'gutenberg_register_theme_block_patterns' );
 function gutenberg_register_core_block_patterns() {
 	$should_register_core_patterns = get_theme_support( 'core-block-patterns' );
 
+	// Register categories used for block patterns.
+	$pattern_category_registry = WP_Block_Pattern_Categories_Registry::get_instance();
+	if ( ! $pattern_category_registry->is_registered( 'heading' ) ) {
+		register_block_pattern_category( 'heading', array( 'label' => __( 'Headings & Titles', 'gutenberg' ) ) );
+	}
+
 	if ( $should_register_core_patterns ) {
 		$core_block_patterns = array(
 			'centered-footer',
